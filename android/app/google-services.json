@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "861870448695",
+    "project_id": "pentiaproject-2bc9a",
+    "storage_bucket": "pentiaproject-2bc9a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861870448695:android:813da7f3ddb4b0732e5fb2",
+        "android_client_info": {
+          "package_name": "com.pentiaproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMDTIuOP8Wnnpaqu5ICUeOLjkG1pgdFTk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
