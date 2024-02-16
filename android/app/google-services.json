@@ -12,7 +12,16 @@
           "package_name": "com.pentiaproject"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "861870448695-4h64inf37dd1p411t46kpccjs0a18csn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pentiaproject",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAMDTIuOP8Wnnpaqu5ICUeOLjkG1pgdFTk"
@@ -20,7 +29,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861870448695-4rla4cu3ein47nq64563e0npo7vv1o6n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "861870448695-35c3llubk9koiqfu5v5oqdn3nels49go.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.PentiaProject"
+              }
+            }
+          ]
         }
       }
     }
