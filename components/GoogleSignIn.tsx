@@ -3,13 +3,13 @@ import { GoogleSigninButton as RNGoogleSignInButton } from '@react-native-google
 import { useAuth } from '../config/AuthContext';
 
 const GoogleSignIn = () => {
-    const { signIn, isInProgress } = useAuth();
+    const { signInWithGoogle, isInProgress } = useAuth();
 
     return (
         <RNGoogleSignInButton
             size={RNGoogleSignInButton.Size.Wide}
             color={RNGoogleSignInButton.Color.Dark}
-            onPress={() => signIn()}
+            onPress={() => signInWithGoogle()}
             disabled={isInProgress}
         />
     );
