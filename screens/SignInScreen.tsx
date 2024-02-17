@@ -1,13 +1,15 @@
 // src/SignInScreen.tsx
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import GoogleSignInButton from '../components/GoogleSignInButton.tsx';
+import GoogleSignIn from '../components/GoogleSignIn.tsx';
+import FacebookSignIn from '../components/FacebookSignIn.tsx';
 
 const SignInScreen = () => {
     return (
         <View style={styles.container}>
             <Text>Sign In Screen</Text>
-            <GoogleSignInButton />
+            <GoogleSignIn />
+            <FacebookSignIn />
         </View>
     );
 };

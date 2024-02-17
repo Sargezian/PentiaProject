@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">PentiaProject</string>
     <string name="server_client_id">861870448695-4rla4cu3ein47nq64563e0npo7vv1o6n.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">1090192042312794</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">56789</string>
 </resources>

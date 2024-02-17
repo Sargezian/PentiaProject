@@ -2,7 +2,7 @@ import React from 'react';
 import { GoogleSigninButton as RNGoogleSignInButton } from '@react-native-google-signin/google-signin';
 import { useAuth } from '../config/AuthContext';
 
-const GoogleSignInComponent = () => {
+const GoogleSignIn = () => {
     const { signIn, isInProgress } = useAuth();
 
     return (
@@ -15,4 +15,4 @@ const GoogleSignInComponent = () => {
     );
 };
 
-export default GoogleSignInComponent;
+export default GoogleSignIn;
