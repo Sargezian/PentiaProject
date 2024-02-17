@@ -14,7 +14,7 @@
 		2709EC3C6A8BCE69E63E2B2E /* Pods_PentiaProject_PentiaProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8686FEBC141FAB5E9E5D71B9 /* Pods_PentiaProject_PentiaProjectTests.framework */; };
 		50DCA7A98D4869D28DFC60C5 /* Pods_PentiaProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F794A592AC7FB3379E84A985 /* Pods_PentiaProject.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		9EC011092B7E66C900859C54 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9EC011082B7E66C800859C54 /* GoogleService-Info.plist */; };
+		9E6F161A2B80FE3300567F4F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E6F16192B80FE3300567F4F /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,7 +43,7 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = PentiaProject/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8686FEBC141FAB5E9E5D71B9 /* Pods_PentiaProject_PentiaProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PentiaProject_PentiaProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-PentiaProject-PentiaProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PentiaProject-PentiaProjectTests.release.xcconfig"; path = "Target Support Files/Pods-PentiaProject-PentiaProjectTests/Pods-PentiaProject-PentiaProjectTests.release.xcconfig"; sourceTree = "<group>"; };
-		9EC011082B7E66C800859C54 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9E6F16192B80FE3300567F4F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F794A592AC7FB3379E84A985 /* Pods_PentiaProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PentiaProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -94,7 +94,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				9EC011082B7E66C800859C54 /* GoogleService-Info.plist */,
+				9E6F16192B80FE3300567F4F /* GoogleService-Info.plist */,
 			);
 			name = PentiaProject;
 			sourceTree = "<group>";
@@ -247,7 +247,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				9EC011092B7E66C900859C54 /* GoogleService-Info.plist in Resources */,
+				9E6F161A2B80FE3300567F4F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,10 +609,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -691,10 +688,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
