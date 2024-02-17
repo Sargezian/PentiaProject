@@ -1,7 +1,8 @@
-import React, { createContext, useContext, ReactNode, useState } from 'react';
+import React, { createContext, useContext, ReactNode, useState, useEffect } from 'react';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface UserInfo {
     id: string;
@@ -32,6 +33,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
     const [isInProgress, setIsInProgress] = useState<boolean>(false);
 
+    useEffect(() => {
+        const checkLoginStatus = async () => {
+            const storedUserInfo = await AsyncStorage.getItem('userInfo');
+            if (storedUserInfo) {
+                setUserInfo(JSON.parse(storedUserInfo));
+            }
+        };
+        checkLoginStatus();
+    }, []);
+
     const signInWithGoogle = async () => {
         try {
             setIsInProgress(true);
@@ -40,13 +51,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
             const googleCredential = auth.GoogleAuthProvider.credential(result.idToken);
             const userCredential = await auth().signInWithCredential(googleCredential);
-
-            setUserInfo({
+            const userInfo = {
                 id: userCredential.user.uid,
                 email: result.user.email,
                 givenName: result.user.givenName || '',
                 familyName: result.user.familyName || '',
-            });
+            };
+            setUserInfo(userInfo);
+            await AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
         } catch (error) {
             console.error(error);
         } finally {
@@ -71,13 +83,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
             const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
             const userCredential = await auth().signInWithCredential(facebookCredential);
-
-            setUserInfo({
+            const userInfo = {
                 id: userCredential.user.uid,
                 email: userCredential.user.email || '',
                 givenName: userCredential.user.displayName || '',
-                familyName: '', // Facebook does not provide family name separately
-            });
+                familyName: '',
+            };
+            setUserInfo(userInfo);
+            await AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
         } catch (error) {
             console.error(error);
         } finally {
@@ -89,9 +102,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         try {
             setIsInProgress(true);
             await auth().signOut();
-            await GoogleSignin.signOut(); // For Google sign out
-            // There is no specific sign out method for Facebook in react-native-fbsdk-next
+            await GoogleSignin.signOut();
             setUserInfo(null);
+            await AsyncStorage.removeItem('userInfo');
         } catch (error) {
             console.error(error);
         } finally {
