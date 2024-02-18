@@ -23,9 +23,18 @@ const AppStack = () => {
   return (
       <Stack.Navigator>
         {userInfo ? (
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen
+                name="Home"
+                component={HomeScreen}
+            />
         ) : (
-            <Stack.Screen name="SignIn" component={SignInScreen} />
+            <Stack.Screen
+                name="SignIn"
+                component={SignInScreen}
+                options={{
+                    headerShown: false,
+                }}
+                 />
         )}
       </Stack.Navigator>
   );
