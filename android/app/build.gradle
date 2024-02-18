@@ -111,6 +111,7 @@ dependencies {
     implementation("com.facebook.react:flipper-integration")
     implementation project(':react-native-fbsdk-next')
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+    implementation project(':react-native-splash-screen')
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
