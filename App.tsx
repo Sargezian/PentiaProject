@@ -9,7 +9,6 @@ import SplashScreen from 'react-native-splash-screen';
 import {
     Platform,
 } from 'react-native';
-import SignOut from './components/SignOut.tsx';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,14 +27,7 @@ const AppStack = () => {
                 name="Chat Rooms"
                 component={HomeScreen}
                 options={{
-                    headerStyle: {
-                        backgroundColor: '#0000bb',
-                    },
-                    headerTintColor: '#fff',
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                    },
-                    headerRight: () => <SignOut />,
+                    headerShown: false,
                 }}
             />
         ) : (
