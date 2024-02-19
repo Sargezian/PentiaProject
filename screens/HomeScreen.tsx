@@ -1,14 +1,13 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useAuth } from '../config/AuthContext.tsx';
 
 const HomeScreen = () => {
-    const { userInfo, signOut } = useAuth();
+    const { userInfo} = useAuth();
 
     return (
         <View style={styles.container}>
             <Text>Hello, {userInfo?.givenName || 'Guest'}</Text>
-            <Button title="Sign Out" onPress={signOut} />
         </View>
     );
 };
