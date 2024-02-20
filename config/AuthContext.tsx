@@ -3,21 +3,8 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-interface UserInfo {
-    id: string;
-    email: string;
-    givenName: string | null;
-    familyName: string | null;
-}
-
-interface AuthContextType {
-    userInfo: UserInfo | null;
-    signInWithGoogle: () => Promise<void>;
-    signInWithFacebook: () => Promise<void>;
-    signOut: () => Promise<void>;
-    isInProgress: boolean;
-}
+import { UserInfo } from '../Types/UserInfo.ts';
+import { AuthContextType } from '../Types/AuthContextType.ts';
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 

@@ -2,10 +2,16 @@ import React from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Image, ImageBackground} from 'react-native';
 import {useAuth} from '../config/AuthContext.tsx';
 import SignOut from '../components/SignOut.tsx';
-
+import {useNavigation} from '@react-navigation/native';
+import { HomeScreenNavigationProp } from '../Types/navigationTypes.ts';
 
 const HomeScreen = () => {
     const {userInfo} = useAuth();
+
+    const navigation = useNavigation<HomeScreenNavigationProp>();
+    const NavigateToChatRoomPress = () => {
+        navigation.navigate('ChatScreen');
+    };
 
     return (
         <ImageBackground
@@ -23,7 +29,9 @@ const HomeScreen = () => {
             </View>
 
             <View style={styles.itemContainer}>
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => NavigateToChatRoomPress()}
+                >
                     <View style={styles.room}>
                         <View style={styles.roomContainer}>
                             <Image source={require('../assets/music.png')} style={styles.roomImage}/>

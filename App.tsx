@@ -9,6 +9,7 @@ import SplashScreen from 'react-native-splash-screen';
 import {
     Platform,
 } from 'react-native';
+import ChatScreen from './screens/ChatScreen.tsx';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,13 +24,23 @@ const AppStack = () => {
   return (
       <Stack.Navigator>
         {userInfo ? (
+            <>
             <Stack.Screen
-                name="Chat Rooms"
+                name="HomeScreen"
                 component={HomeScreen}
                 options={{
                     headerShown: false,
                 }}
             />
+            <Stack.Screen
+                name="ChatScreen"
+                component={ChatScreen}
+                options={{
+                    // Customize your ChatScreen header or set it to false
+                    headerShown: true, // Change this as needed
+                }}
+            />
+            </>
         ) : (
             <Stack.Screen
                 name="SignIn"
