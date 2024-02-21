@@ -4,7 +4,6 @@ import ChatRoom from '../components/ChatRoom/ChatRoom.tsx';
 import ChatRoomTextContainer from '../components/ChatRoom/ChatRoomTextContainer.tsx';
 import ChatRoomWelcomeText from '../components/ChatRoom/ChatRoomWelcomeText.tsx';
 
-
 const HomeScreen = () => {
 
     return (
