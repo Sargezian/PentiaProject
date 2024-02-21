@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 type SendMessageProps = {
     currentMessage: string;
@@ -16,9 +16,12 @@ const SendMessage: React.FC<SendMessageProps> = ({ currentMessage, setCurrentMes
                 onChangeText={setCurrentMessage}
                 placeholder="Type a message"
             />
-            <View style={styles.button}>
-                <Button title="Send" onPress={sendMessage} />
-            </View>
+            <TouchableOpacity style={styles.button} onPress={sendMessage}>
+                <Image
+                    source={require('../../assets/send.png')}
+                    style={styles.imageButton}
+                />
+            </TouchableOpacity>
         </View>
     );
 };
@@ -28,10 +31,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     input: {
-        flex: 1,
+        flex: 4,
         height: 50,
         marginBottom: 40,
-        marginHorizontal: 20,
+        marginHorizontal: 10,
         borderRadius: 10,
         padding: 10,
         backgroundColor: '#f5f5f5',
@@ -42,11 +45,13 @@ const styles = StyleSheet.create({
         shadowRadius: 8,
     },
     button: {
-        flex: 0.25,
-        height: 50,
+        flex: 1,
         marginBottom: 40,
-        borderRadius: 10,
-        marginHorizontal: 10,
+    },
+    imageButton: {
+        width: 60,
+        height: 40,
+        resizeMode: 'contain',
     },
 });
 
