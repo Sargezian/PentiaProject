@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { StyleSheet, ImageBackground } from 'react-native';
+import { StyleSheet, ImageBackground, KeyboardAvoidingView, Platform } from 'react-native';
 import database from '@react-native-firebase/database';
 import { AuthContext } from '../config/AuthContext';
 import MessageList from '../components/MessageRoom/MessageList.tsx';
@@ -61,18 +61,25 @@ const ChatScreen = () => {
     };
 
     return (
-        <ImageBackground
-            source={require('../assets/MessageBg.png')}
-            style={styles.imageBackground}
-            resizeMode="cover"
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            keyboardVerticalOffset={Platform.OS === "ios" ? 60 : 80}
         >
-            <MessageList messages={messages} formatDate={formatDate} />
-            <SendMessage
-                currentMessage={currentMessage}
-                setCurrentMessage={setCurrentMessage}
-                sendMessage={sendMessage}
-            />
-        </ImageBackground>
+                <ImageBackground
+                    source={require('../assets/MessageBg.png')}
+                    style={styles.imageBackground}
+                    resizeMode="cover"
+                >
+                    <MessageList messages={messages} formatDate={formatDate} />
+                    <SendMessage
+                        currentMessage={currentMessage}
+                        setCurrentMessage={setCurrentMessage}
+                        sendMessage={sendMessage}
+                    />
+                </ImageBackground>
+
+        </KeyboardAvoidingView>
     );
 };
 
