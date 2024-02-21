@@ -25,7 +25,9 @@ const ChatScreen = () => {
         const messagesRef = database().ref('/messages');
         const onReceiveMessage = messagesRef.on('value', snapshot => {
             const fetchedMessages = snapshot.val() ? Object.values(snapshot.val()) : [];
-            setMessages(fetchedMessages as Message[]);
+            // Assert the fetched messages as an array of Message objects
+            const sortedMessages = (fetchedMessages as Message[]).sort((a, b) => a.date - b.date);
+            setMessages(sortedMessages);
         });
 
         return () => messagesRef.off('value', onReceiveMessage);
