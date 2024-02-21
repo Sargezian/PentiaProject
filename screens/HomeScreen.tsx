@@ -1,12 +1,9 @@
 import React from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Image, ImageBackground} from 'react-native';
-import {useAuth} from '../config/AuthContext.tsx';
-import SignOut from '../components/SignOut.tsx';
 import {useNavigation} from '@react-navigation/native';
 import { HomeScreenNavigationProp } from '../Types/navigationTypes.ts';
 
 const HomeScreen = () => {
-    const {userInfo} = useAuth();
 
     const navigation = useNavigation<HomeScreenNavigationProp>();
     const NavigateToChatRoomPress = () => {
@@ -19,15 +16,6 @@ const HomeScreen = () => {
             style={styles.container}
             resizeMode="cover"
         >
-            <View style={styles.containerHolder}>
-                <View style={styles.containerItems}>
-                    <Text style={styles.WelcomeText}>Welcome {userInfo?.givenName || 'Guest'} !</Text>
-                </View>
-                <View style={styles.containerItems}>
-                    <SignOut/>
-                </View>
-            </View>
-
             <View style={styles.itemContainer}>
                 <TouchableOpacity
                     onPress={() => NavigateToChatRoomPress()}
@@ -106,36 +94,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
-    containerHolder: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    containerItems: {
-        backgroundColor: 'white',
-        alignItems: 'center',
-        borderRadius: 18,
-        padding: 12,
-        elevation: 4,
-        shadowColor: 'black',
-        shadowOpacity: 1,
-        shadowOffset: {width: 0, height: 20},
-        shadowRadius: 8,
-        marginBottom: 35,
-        marginTop: 75,
-        marginHorizontal: 4,
-    },
-
     WelcomeText: {
         fontSize: 24,
         fontWeight: 'bold',
     },
 
-
     itemContainer: {
         flex: 1,
         width: '100%',
+        marginTop: 40,
         flexDirection: 'column',
         backgroundColor: 'white',
         borderRadius: 60,

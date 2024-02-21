@@ -10,6 +10,8 @@ import {
     Platform,
 } from 'react-native';
 import ChatScreen from './screens/ChatScreen.tsx';
+import SignOut from './components/SignOut.tsx';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -29,15 +31,25 @@ const AppStack = () => {
                 name="HomeScreen"
                 component={HomeScreen}
                 options={{
-                    headerShown: false,
+                    headerStyle: {
+                        backgroundColor: '#00006e',
+                    },
+                    headerTintColor: '#fff',
+                    headerShown: true,
+                    headerRight: () => (
+                        <SignOut />
+                    ),
                 }}
             />
             <Stack.Screen
                 name="ChatScreen"
                 component={ChatScreen}
                 options={{
-                    // Customize your ChatScreen header or set it to false
-                    headerShown: true, // Change this as needed
+                    headerStyle: {
+                        backgroundColor: '#00006e',
+                    },
+                    headerTintColor: '#fff',
+                    headerShown: true,
                 }}
             />
             </>
