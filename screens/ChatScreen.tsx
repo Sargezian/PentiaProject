@@ -4,6 +4,11 @@ import database from '@react-native-firebase/database';
 import { AuthContext } from '../config/AuthContext';
 import MessageList from '../components/MessageRoom/MessageList.tsx';
 import SendMessage from '../components/MessageRoom/SendMessage.tsx';
+import { useRoute } from '@react-navigation/native';
+import { RouteProp } from '@react-navigation/native';
+import {RootStackParamList} from '../Types/navigationTypes.ts';
+
+type ChatScreenRouteProp = RouteProp<RootStackParamList, 'ChatScreen'>;
 
 type Message = {
     name: string;
@@ -18,11 +23,14 @@ const ChatScreen = () => {
     }
     const { userInfo } = authContext;
 
+    const route = useRoute<ChatScreenRouteProp>();
+    const { chatRoomId } = route.params;
+
     const [currentMessage, setCurrentMessage] = useState('');
     const [messages, setMessages] = useState<Message[]>([]);
 
     useEffect(() => {
-        const messagesRef = database().ref('/messages');
+        const messagesRef = database().ref(`/messages/${chatRoomId}`);
         const onReceiveMessage = messagesRef.on('value', snapshot => {
             const fetchedMessages = snapshot.val() ? Object.values(snapshot.val()) : [];
             // Assert the fetched messages as an array of Message objects
@@ -31,7 +39,7 @@ const ChatScreen = () => {
         });
 
         return () => messagesRef.off('value', onReceiveMessage);
-    }, []);
+    }, [chatRoomId]);
 
     const sendMessage = async () => {
         if (currentMessage.trim() === '') return;
@@ -42,7 +50,7 @@ const ChatScreen = () => {
             date: Date.now(),
         };
 
-        await database().ref('/messages').push(messageData);
+        await database().ref(`/messages/${chatRoomId}`).push(messageData);
         setCurrentMessage('');
     };
 

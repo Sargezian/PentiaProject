@@ -1,9 +1,9 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 
-type RootStackParamList = {
+export type RootStackParamList = {
     HomeScreen: undefined;
     SignIn: undefined;
-    ChatScreen: undefined;
+    ChatScreen: { chatRoomId: string };
 };
 
 export type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'HomeScreen'>;

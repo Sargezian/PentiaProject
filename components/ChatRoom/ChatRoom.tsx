@@ -6,14 +6,14 @@ import { HomeScreenNavigationProp } from '../../Types/navigationTypes.ts';
 const ChatRoom = () => {
 
     const navigation = useNavigation<HomeScreenNavigationProp>();
-    const NavigateToChatRoomPress = () => {
-        navigation.navigate('ChatScreen');
+    const NavigateToChatRoomPress = (chatRoomId: string) => {
+        navigation.navigate('ChatScreen', { chatRoomId });
     };
 
     return (
         <View style={styles.itemContainer}>
             <TouchableOpacity
-                onPress={() => NavigateToChatRoomPress()}
+                onPress={() => NavigateToChatRoomPress('Music')}
             >
                 <View style={styles.room}>
                     <View style={styles.roomContainer}>
@@ -26,7 +26,9 @@ const ChatRoom = () => {
                     <Image source={require('../../assets/right-chevron.png')} style={styles.chevronIcon}/>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => NavigateToChatRoomPress('Religion')}
+            >
                 <View style={styles.room}>
                     <View style={styles.roomContainer}>
                         <Image source={require('../../assets/religions.png')} style={styles.roomImage}/>
@@ -38,7 +40,9 @@ const ChatRoom = () => {
                     <Image source={require('../../assets/right-chevron.png')} style={styles.chevronIcon}/>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => NavigateToChatRoomPress('Parenting')}
+            >
                 <View style={styles.room}>
                     <View style={styles.roomContainer}>
                         <Image source={require('../../assets/parenting.png')} style={styles.roomImage}/>
@@ -50,7 +54,9 @@ const ChatRoom = () => {
                     <Image source={require('../../assets/right-chevron.png')} style={styles.chevronIcon}/>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => NavigateToChatRoomPress('Animals')}
+            >
                 <View style={styles.room}>
                     <View style={styles.roomContainer}>
                         <Image source={require('../../assets/animal.png')} style={styles.roomImage}/>
@@ -62,7 +68,9 @@ const ChatRoom = () => {
                     <Image source={require('../../assets/right-chevron.png')} style={styles.chevronIcon}/>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => NavigateToChatRoomPress('Sports')}
+            >
                 <View style={styles.room}>
                     <View style={styles.roomContainer}>
                         <Image source={require('../../assets/sports.png')} style={styles.roomImage}/>
