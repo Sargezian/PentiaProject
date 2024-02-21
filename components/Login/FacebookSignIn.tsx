@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
-import { useAuth } from '../config/AuthContext.tsx';
+import { useAuth } from '../../config/AuthContext.tsx';
 
 function FacebookSignIn() {
     const { signInWithFacebook } = useAuth();
@@ -8,7 +8,7 @@ function FacebookSignIn() {
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.btn} onPress={() => signInWithFacebook().then(() => console.log('Signed in with Facebook!'))}>
-                <Image source={require('../assets/facebook.png')} style={styles.icon} />
+                <Image source={require('../../assets/facebook.png')} style={styles.icon} />
                 <Text style={styles.buttonText}>Sign In With Facebook</Text>
             </TouchableOpacity>
         </View>

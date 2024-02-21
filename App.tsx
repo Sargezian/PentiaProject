@@ -10,7 +10,7 @@ import {
     Platform,
 } from 'react-native';
 import ChatScreen from './screens/ChatScreen.tsx';
-import SignOut from './components/SignOut.tsx';
+import SignOut from './components/Login/SignOut.tsx';
 
 
 const Stack = createNativeStackNavigator();

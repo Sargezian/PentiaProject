@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, Image} from 'react-native';
-import GoogleSignIn from '../components/GoogleSignIn.tsx';
-import FacebookSignIn from '../components/FacebookSignIn.tsx';
+import GoogleSignIn from '../components/Login/GoogleSignIn.tsx';
+import FacebookSignIn from '../components/Login/FacebookSignIn.tsx';
 
 const SignInScreen = () => {
     return (

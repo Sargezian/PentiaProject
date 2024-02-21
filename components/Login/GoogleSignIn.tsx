@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
-import { useAuth } from '../config/AuthContext';
+import { useAuth } from '../../config/AuthContext.tsx';
 
 const GoogleSignIn = () => {
     const { signInWithGoogle, isInProgress } = useAuth();
@@ -13,7 +13,7 @@ const GoogleSignIn = () => {
                 disabled={isInProgress}
             >
                 <Image
-                    source={require('../assets/google.png')} // Adjust the path as necessary
+                    source={require('../../assets/google.png')} // Adjust the path as necessary
                     style={styles.icon}
                 />
                 <Text style={styles.buttonText}>Sign In With Google</Text>
