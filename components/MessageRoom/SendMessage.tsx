@@ -1,10 +1,19 @@
 import React from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import ImagePicker from 'react-native-image-crop-picker';
 
 type SendMessageProps = {
     currentMessage: string;
     setCurrentMessage: React.Dispatch<React.SetStateAction<string>>;
     sendMessage: () => Promise<void>;
+};
+
+const uploadImage = () => {
+    ImagePicker.openPicker({
+        cropping: false,
+    }).then(image => {
+        console.log(image);
+    });
 };
 
 const SendMessage: React.FC<SendMessageProps> = ({ currentMessage, setCurrentMessage, sendMessage }) => {
@@ -17,12 +26,14 @@ const SendMessage: React.FC<SendMessageProps> = ({ currentMessage, setCurrentMes
                     onChangeText={setCurrentMessage}
                     placeholder="Type a message"
                 />
-                <TouchableOpacity >
+                <TouchableOpacity onPress={uploadImage} >
+
                     <Image
                         source={require('../../assets/image.png')}
                         style={styles.imageButton}
                     />
                 </TouchableOpacity>
+
             </View>
             <TouchableOpacity onPress={sendMessage} style={styles.imageButtonContainer}>
                 <Image
