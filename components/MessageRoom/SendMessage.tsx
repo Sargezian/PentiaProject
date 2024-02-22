@@ -10,16 +10,24 @@ type SendMessageProps = {
 const SendMessage: React.FC<SendMessageProps> = ({ currentMessage, setCurrentMessage, sendMessage }) => {
     return (
         <View style={styles.sendInputMessage}>
-            <TextInput
-                style={styles.input}
-                value={currentMessage}
-                onChangeText={setCurrentMessage}
-                placeholder="Type a message"
-            />
-            <TouchableOpacity style={styles.button} onPress={sendMessage}>
+            <View style={styles.inputContainer}>
+                <TextInput
+                    style={styles.input}
+                    value={currentMessage}
+                    onChangeText={setCurrentMessage}
+                    placeholder="Type a message"
+                />
+                <TouchableOpacity >
+                    <Image
+                        source={require('../../assets/image.png')}
+                        style={styles.imageButton}
+                    />
+                </TouchableOpacity>
+            </View>
+            <TouchableOpacity onPress={sendMessage} style={styles.imageButtonContainer}>
                 <Image
                     source={require('../../assets/send.png')}
-                    style={styles.imageButton}
+                    style={styles.sendButton}
                 />
             </TouchableOpacity>
         </View>
@@ -29,27 +37,44 @@ const SendMessage: React.FC<SendMessageProps> = ({ currentMessage, setCurrentMes
 const styles = StyleSheet.create({
     sendInputMessage: {
         flexDirection: 'row',
-    },
-    input: {
-        flex: 4,
-        height: 50,
+        alignItems: 'center',
         marginBottom: 40,
         marginHorizontal: 10,
+    },
+    inputContainer: {
+        flexDirection: 'row',
+        flex: 1,
+        alignItems: 'center',
         borderRadius: 10,
-        padding: 10,
         backgroundColor: '#f5f5f5',
         elevation: 4,
         shadowColor: 'black',
         shadowOpacity: 0.5,
-        shadowOffset: {width: 0, height: 2},
+        shadowOffset: { width: 0, height: 2 },
         shadowRadius: 8,
     },
-    button: {
+    input: {
         flex: 1,
-        marginBottom: 40,
+        height: 50,
+        borderRadius: 10,
+        padding: 10,
+        marginLeft: 10,
+        backgroundColor: '#f5f5f5',
     },
+    imageButtonContainer: {
+        padding: 10,
+    },
+
+
     imageButton: {
-        width: 60,
+        width: 40,
+        height: 40,
+        marginHorizontal: 5,
+
+    },
+
+    sendButton: {
+        width: 40,
         height: 40,
         resizeMode: 'contain',
     },
