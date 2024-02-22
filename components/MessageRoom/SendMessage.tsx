@@ -10,6 +10,15 @@ type SendMessageProps = {
 const SendMessage: React.FC<SendMessageProps> = ({ onSend }) => {
     const [currentMessage, setCurrentMessage] = useState('');
 
+    const uploadImageFromCameraAndSendMessage = async () => {
+        ImagePicker.openCamera({
+            cropping: false,
+        }).then(image => {
+            console.log(image);
+        });
+    };
+
+
     const uploadImageAndSendMessage = async () => {
         ImagePicker.openPicker({
             cropping: false,
@@ -45,6 +54,12 @@ const SendMessage: React.FC<SendMessageProps> = ({ onSend }) => {
                     onChangeText={setCurrentMessage}
                     placeholder="Type a message"
                 />
+                <TouchableOpacity onPress={uploadImageFromCameraAndSendMessage}>
+                    <Image
+                        source={require('../../assets/camera.png')}
+                        style={styles.cameraButton}
+                    />
+                </TouchableOpacity>
                 <TouchableOpacity onPress={uploadImageAndSendMessage}>
                     <Image
                         source={require('../../assets/image.png')}
@@ -93,12 +108,15 @@ const styles = StyleSheet.create({
         padding: 10,
     },
 
+    cameraButton: {
+        width: 45,
+        height: 45,
+    },
 
     imageButton: {
         width: 40,
         height: 40,
         marginHorizontal: 5,
-
     },
 
     sendButton: {
