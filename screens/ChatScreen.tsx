@@ -14,6 +14,7 @@ type Message = {
     name: string;
     text: string;
     date: number;
+    imageUrl?: string;
 };
 
 const ChatScreen = () => {
@@ -26,7 +27,6 @@ const ChatScreen = () => {
     const route = useRoute<ChatScreenRouteProp>();
     const { chatRoomId } = route.params;
 
-    const [currentMessage, setCurrentMessage] = useState('');
     const [messages, setMessages] = useState<Message[]>([]);
 
     useEffect(() => {
@@ -41,18 +41,19 @@ const ChatScreen = () => {
         return () => messagesRef.off('value', onReceiveMessage);
     }, [chatRoomId]);
 
-    const sendMessage = async () => {
-        if (currentMessage.trim() === '') return;
+    const sendMessage = async (message: { text?: string; imageUrl?: string }) => {
+        if (!message.text && !message.imageUrl) return;
 
         const messageData = {
             name: userInfo?.givenName || 'Unknown',
-            text: currentMessage,
+            text: message.text,
+            imageUrl: message.imageUrl,
             date: Date.now(),
         };
 
         await database().ref(`/messages/${chatRoomId}`).push(messageData);
-        setCurrentMessage('');
     };
+
 
     // Function to format the date
     const formatDate = (timestamp: number) => {
@@ -73,9 +74,7 @@ const ChatScreen = () => {
                 >
                     <MessageList messages={messages} formatDate={formatDate} />
                     <SendMessage
-                        currentMessage={currentMessage}
-                        setCurrentMessage={setCurrentMessage}
-                        sendMessage={sendMessage}
+                        onSend={sendMessage}
                     />
                 </ImageBackground>
 

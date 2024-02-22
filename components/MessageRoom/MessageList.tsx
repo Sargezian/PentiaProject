@@ -1,28 +1,32 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet, Image } from 'react-native';
-import { MessageListProps } from '../../Types/MessageTypes.ts';
+import { MessageListProps, Message } from '../../Types/MessageTypes.ts';
 
 const MessageList: React.FC<MessageListProps> = ({ messages, formatDate }) => {
+    const renderItem = ({ item }: { item: Message }) => (
+        <View style={styles.messageContainer}>
+            <Image source={require('../../assets/user.png')} style={styles.avatar} />
+            <View style={styles.messageColumn}>
+                <View style={styles.messageHolder}>
+                    <Text style={styles.name}>{item.name}</Text>
+                    {item.text ? <Text style={styles.messageText}>{item.text}</Text> : null}
+                    {item.imageUrl ? (
+                        <Image source={{ uri: item.imageUrl }} style={styles.messageImage} />
+                    ) : null}
+                </View>
+                <Text style={styles.dateText}>{formatDate(item.date)}</Text>
+            </View>
+        </View>
+    );
+
     return (
         <FlatList
             data={messages}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-                <View style={styles.messageContainer}>
-                    <Image source={require('../../assets/user.png')} style={styles.avatar} />
-                    <View style={styles.messageColumn}>
-                        <View style={styles.messageHolder}>
-                            <Text style={styles.name}>{item.name}</Text>
-                            <Text style={styles.messageText}>{`${item.text}`}</Text>
-                        </View>
-                        <Text>{`${formatDate(item.date)}`}</Text>
-                    </View>
-                </View>
-            )}
+            renderItem={renderItem}
         />
     );
 };
-
 const styles = StyleSheet.create({
     messageContainer: {
         flexDirection: 'row',
@@ -55,6 +59,15 @@ const styles = StyleSheet.create({
     },
     messageText: {
         fontSize: 16,
+    },
+    messageImage: {
+        width: 100,
+        height: 100,
+        marginTop: 10,
+        borderRadius: 10,
+    },
+    dateText: {
+        marginTop: 5,
     },
 });
 

@@ -1,22 +1,41 @@
-import React from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
+import storage from '@react-native-firebase/storage';
 
 type SendMessageProps = {
-    currentMessage: string;
-    setCurrentMessage: React.Dispatch<React.SetStateAction<string>>;
-    sendMessage: () => Promise<void>;
+    onSend: (message: { text?: string; imageUrl?: string }) => Promise<void>;
 };
 
-const uploadImage = () => {
-    ImagePicker.openPicker({
-        cropping: false,
-    }).then(image => {
-        console.log(image);
-    });
-};
+const SendMessage: React.FC<SendMessageProps> = ({ onSend }) => {
+    const [currentMessage, setCurrentMessage] = useState('');
 
-const SendMessage: React.FC<SendMessageProps> = ({ currentMessage, setCurrentMessage, sendMessage }) => {
+    const uploadImageAndSendMessage = async () => {
+        ImagePicker.openPicker({
+            cropping: false,
+        }).then(async (image) => {
+            const imgName = image.path.substring(image.path.lastIndexOf('/') + 1);
+            const newName = `${Date.now()}_${imgName}`;
+            const reference = storage().ref(`Images/${newName}`);
+
+            await reference.putFile(image.path);
+            const url = await reference.getDownloadURL();
+
+            onSend({ imageUrl: url });
+            console.log('Image Picker Response: ', image);
+        }).catch((error) => {
+            console.log(error);
+            Alert.alert('Error', 'Could not select image.');
+        });
+    };
+
+    const handleSendMessage = () => {
+        if (currentMessage.trim()) {
+            onSend({ text: currentMessage });
+            setCurrentMessage('');
+        }
+    };
+
     return (
         <View style={styles.sendInputMessage}>
             <View style={styles.inputContainer}>
@@ -26,16 +45,14 @@ const SendMessage: React.FC<SendMessageProps> = ({ currentMessage, setCurrentMes
                     onChangeText={setCurrentMessage}
                     placeholder="Type a message"
                 />
-                <TouchableOpacity onPress={uploadImage} >
-
+                <TouchableOpacity onPress={uploadImageAndSendMessage}>
                     <Image
                         source={require('../../assets/image.png')}
                         style={styles.imageButton}
                     />
                 </TouchableOpacity>
-
             </View>
-            <TouchableOpacity onPress={sendMessage} style={styles.imageButtonContainer}>
+            <TouchableOpacity onPress={handleSendMessage} style={styles.imageButtonContainer}>
                 <Image
                     source={require('../../assets/send.png')}
                     style={styles.sendButton}
