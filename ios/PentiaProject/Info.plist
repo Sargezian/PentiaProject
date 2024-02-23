@@ -31,11 +31,11 @@
 			</array>
 		</dict>
 		<dict>
-             <key>CFBundleURLSchemes</key>
-             <array>
-                <string>fb1090192042312794</string>
-             </array>
-        </dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1090192042312794</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
@@ -59,12 +59,17 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>PentiaApp would like to use your camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
-		<key>NSPhotoLibraryUsageDescription</key>
-    	<string>PentiaApp like to get access to your photo library to share images</string>
-    	<key>NSCameraUsageDescription</key>
-    	<string>PentiaApp would like to use your camera</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>PentiaApp like to get access to your photo library to share images</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

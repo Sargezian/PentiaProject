@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
+import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
 type SendMessageProps = {
     onSend: (message: { text?: string; imageUrl?: string }) => Promise<void>;
@@ -10,14 +11,41 @@ type SendMessageProps = {
 const SendMessage: React.FC<SendMessageProps> = ({ onSend }) => {
     const [currentMessage, setCurrentMessage] = useState('');
 
-    const uploadImageFromCameraAndSendMessage = async () => {
-        ImagePicker.openCamera({
-            cropping: false,
-        }).then(image => {
-            console.log(image);
-        });
+    const requestNotificationPermission = async () => {
+        const result = await check(PERMISSIONS.ANDROID.POST_NOTIFICATIONS);
+        if (result === RESULTS.GRANTED) {
+            return true; // Permission already granted
+        } else {
+            const requestResult = await request(PERMISSIONS.ANDROID.POST_NOTIFICATIONS);
+            return requestResult === RESULTS.GRANTED;
+        }
     };
 
+    const handleSend = async (messageContent: { text?: string; imageUrl?: string }) => {
+        const hasPermission = await requestNotificationPermission();
+        if (hasPermission) {
+            Alert.alert(
+                'Enable Notifications',
+                'Would you like to receive notifications for new messages in this room?',
+                [
+                    {
+                        text: 'No',
+                        onPress: () => console.log('User denied room notifications'),
+                        style: 'cancel',
+                    },
+                    {
+                        text: 'Yes',
+                        onPress: async () => {
+                            await onSend(messageContent);
+                            if (messageContent.text) setCurrentMessage('');
+                        },
+                    },
+                ]
+            );
+        } else {
+            Alert.alert('Notification Permission Denied', "You won't receive notifications for new messages in this room.");
+        }
+    };
 
     const uploadImageAndSendMessage = async () => {
         ImagePicker.openPicker({
@@ -29,19 +57,16 @@ const SendMessage: React.FC<SendMessageProps> = ({ onSend }) => {
 
             await reference.putFile(image.path);
             const url = await reference.getDownloadURL();
-
-            onSend({ imageUrl: url });
-            console.log('Image Picker Response: ', image);
+            handleSend({ imageUrl: url });
         }).catch((error) => {
             console.log(error);
             Alert.alert('Error', 'Could not select image.');
         });
     };
 
-    const handleSendMessage = () => {
+    const handleSendMessage = async () => {
         if (currentMessage.trim()) {
-            onSend({ text: currentMessage });
-            setCurrentMessage('');
+            handleSend({ text: currentMessage });
         }
     };
 
@@ -54,24 +79,15 @@ const SendMessage: React.FC<SendMessageProps> = ({ onSend }) => {
                     onChangeText={setCurrentMessage}
                     placeholder="Type a message"
                 />
-                <TouchableOpacity onPress={uploadImageFromCameraAndSendMessage}>
-                    <Image
-                        source={require('../../assets/camera.png')}
-                        style={styles.cameraButton}
-                    />
+                <TouchableOpacity onPress={() => uploadImageAndSendMessage()}>
+                    <Image source={require('../../assets/camera.png')} style={styles.cameraButton} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={uploadImageAndSendMessage}>
-                    <Image
-                        source={require('../../assets/image.png')}
-                        style={styles.imageButton}
-                    />
+                <TouchableOpacity onPress={() => uploadImageAndSendMessage()}>
+                    <Image source={require('../../assets/image.png')} style={styles.imageButton} />
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={handleSendMessage} style={styles.imageButtonContainer}>
-                <Image
-                    source={require('../../assets/send.png')}
-                    style={styles.sendButton}
-                />
+            <TouchableOpacity onPress={() => handleSendMessage()} style={styles.imageButtonContainer}>
+                <Image source={require('../../assets/send.png')} style={styles.sendButton} />
             </TouchableOpacity>
         </View>
     );
@@ -107,18 +123,15 @@ const styles = StyleSheet.create({
     imageButtonContainer: {
         padding: 10,
     },
-
     cameraButton: {
         width: 45,
         height: 45,
     },
-
     imageButton: {
         width: 40,
         height: 40,
         marginHorizontal: 5,
     },
-
     sendButton: {
         width: 40,
         height: 40,
