@@ -3,6 +3,13 @@ import { View, TextInput, StyleSheet, TouchableOpacity, Image, Alert } from 'rea
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import database from '@react-native-firebase/database';
+import {useAuth} from '../../config/AuthContext.tsx';
+import {RouteProp, useRoute} from '@react-navigation/native';
+import {RootStackParamList} from '../../Types/navigationTypes.ts';
+
+type ChatScreenRouteProp = RouteProp<RootStackParamList, 'ChatScreen'>;
+
 
 type SendMessageProps = {
     onSend: (message: { text?: string; imageUrl?: string }) => Promise<void>;
@@ -10,11 +17,15 @@ type SendMessageProps = {
 
 const SendMessage: React.FC<SendMessageProps> = ({ onSend }) => {
     const [currentMessage, setCurrentMessage] = useState('');
+    const { userInfo} = useAuth();
+
+    const route = useRoute<ChatScreenRouteProp>();
+    const { chatRoomId } = route.params;
 
     const requestNotificationPermission = async () => {
         const result = await check(PERMISSIONS.ANDROID.POST_NOTIFICATIONS);
         if (result === RESULTS.GRANTED) {
-            return true; // Permission already granted
+            return true;
         } else {
             const requestResult = await request(PERMISSIONS.ANDROID.POST_NOTIFICATIONS);
             return requestResult === RESULTS.GRANTED;
@@ -30,13 +41,17 @@ const SendMessage: React.FC<SendMessageProps> = ({ onSend }) => {
                 [
                     {
                         text: 'No',
-                        onPress: () => console.log('User denied room notifications'),
+                        onPress: () => {
+                            console.log('User denied room notifications');
+                            saveUserNotificationPreference(false);
+                        },
                         style: 'cancel',
                     },
                     {
                         text: 'Yes',
                         onPress: async () => {
                             await onSend(messageContent);
+                            saveUserNotificationPreference(true);
                             if (messageContent.text) setCurrentMessage('');
                         },
                     },
@@ -45,6 +60,22 @@ const SendMessage: React.FC<SendMessageProps> = ({ onSend }) => {
         } else {
             Alert.alert('Notification Permission Denied', "You won't receive notifications for new messages in this room.");
         }
+    };
+
+    const saveUserNotificationPreference = (prefersNotifications: boolean) => {
+        const userId = userInfo?.id;
+        if (!userId) {
+            console.log('User ID not found.');
+            return;
+        }
+
+        database()
+            .ref(`/users/${chatRoomId}/${userId}`)
+            .update({
+                prefersNotifications,
+            })
+            .then(() => console.log('User notification preference updated.'))
+            .catch((error) => console.error('Error updating user notification preference:', error));
     };
 
     const uploadImageAndSendMessage = async () => {
@@ -57,7 +88,7 @@ const SendMessage: React.FC<SendMessageProps> = ({ onSend }) => {
 
             await reference.putFile(image.path);
             const url = await reference.getDownloadURL();
-            handleSend({ imageUrl: url });
+            await handleSend({imageUrl: url});
         }).catch((error) => {
             console.log(error);
             Alert.alert('Error', 'Could not select image.');
@@ -66,7 +97,7 @@ const SendMessage: React.FC<SendMessageProps> = ({ onSend }) => {
 
     const handleSendMessage = async () => {
         if (currentMessage.trim()) {
-            handleSend({ text: currentMessage });
+            await handleSend({text: currentMessage});
         }
     };
 
