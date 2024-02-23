@@ -3,8 +3,10 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { UserInfo } from '../Types/UserInfo.ts';
-import { AuthContextType } from '../Types/AuthContextType.ts';
+import messaging from '@react-native-firebase/messaging';
+import database from '@react-native-firebase/database';
+import { UserInfo } from '../Types/UserInfo'; // Ensure paths are correct
+import { AuthContextType } from '../Types/AuthContextType'; // Ensure paths are correct
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -30,15 +32,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         checkLoginStatus();
     }, []);
 
+    const saveFCMTokenToDatabase = async (userId: string) => {
+        const currentToken = await messaging().getToken();
+        if (currentToken) {
+            console.log('FCM Token:', currentToken);
+            await database()
+                .ref(`/user_tokens/${userId}`)
+                .set({token: currentToken});
+        } else {
+            console.log('No registration token available. Request permission to generate one.');
+        }
+    };
+
     const signInWithGoogle = async () => {
+        setIsInProgress(true);
         try {
-            setIsInProgress(true);
             await GoogleSignin.hasPlayServices();
             const result = await GoogleSignin.signIn();
 
             const googleCredential = auth.GoogleAuthProvider.credential(result.idToken);
             const userCredential = await auth().signInWithCredential(googleCredential);
-            const userInfo = {
+            const userInfo: UserInfo = {
                 id: userCredential.user.uid,
                 email: result.user.email,
                 givenName: result.user.givenName || '',
@@ -46,6 +60,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             };
             setUserInfo(userInfo);
             await AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
+            await saveFCMTokenToDatabase(userInfo.id);
         } catch (error) {
             console.error(error);
         } finally {
@@ -54,8 +69,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const signInWithFacebook = async () => {
+        setIsInProgress(true);
         try {
-            setIsInProgress(true);
             const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
 
             if (result.isCancelled) {
@@ -70,7 +85,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
             const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
             const userCredential = await auth().signInWithCredential(facebookCredential);
-            const userInfo = {
+            const userInfo: UserInfo = {
                 id: userCredential.user.uid,
                 email: userCredential.user.email || '',
                 givenName: userCredential.user.displayName || '',
@@ -78,6 +93,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             };
             setUserInfo(userInfo);
             await AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
+            await saveFCMTokenToDatabase(userInfo.id);
         } catch (error) {
             console.error(error);
         } finally {
@@ -86,12 +102,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const signOut = async () => {
+        setIsInProgress(true);
         try {
-            setIsInProgress(true);
             await auth().signOut();
             await GoogleSignin.signOut();
             setUserInfo(null);
             await AsyncStorage.removeItem('userInfo');
+            // Consider also removing the FCM token from the database here
         } catch (error) {
             console.error(error);
         } finally {
