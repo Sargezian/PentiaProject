@@ -44,22 +44,31 @@ const SendMessage: React.FC<SendMessageProps> = ({ onSend }) => {
                         onPress: () => {
                             console.log('User denied room notifications');
                             saveUserNotificationPreference(false);
+                            // Send the message even if the user selects 'No'.
+                            sendMessageAndClearInput(messageContent);
                         },
                         style: 'cancel',
                     },
                     {
                         text: 'Yes',
-                        onPress: async () => {
-                            await onSend(messageContent);
+                        onPress: () => {
                             saveUserNotificationPreference(true);
-                            if (messageContent.text) setCurrentMessage('');
+                            // Send the message also when the user selects 'Yes'.
+                            sendMessageAndClearInput(messageContent);
                         },
                     },
                 ]
             );
         } else {
             Alert.alert('Notification Permission Denied', "You won't receive notifications for new messages in this room.");
+            // Send the message if permission is denied.
+            sendMessageAndClearInput(messageContent);
         }
+    };
+
+    const sendMessageAndClearInput = async (messageContent: { text?: string; imageUrl?: string }) => {
+        await onSend(messageContent);
+        if (messageContent.text) setCurrentMessage('');
     };
 
     const saveUserNotificationPreference = (prefersNotifications: boolean) => {
@@ -70,7 +79,7 @@ const SendMessage: React.FC<SendMessageProps> = ({ onSend }) => {
         }
 
         database()
-            .ref(`/users/${chatRoomId}/${userId}`)
+            .ref(`/user_preferences/${chatRoomId}/${userId}`)
             .update({
                 prefersNotifications,
             })
