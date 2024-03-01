@@ -50,8 +50,8 @@ The app was developed using Google Firebase, React Native CLI for the framework 
 
 # Screenshots
 
-### Login:
-![app/Login.png](app/Login.png)
+### App Icons:
+![assets/READMEScreenshots/AppIcon1.png](assets/READMEScreenshots/AppIcon1.png)
 
 ### MarketWatch
 ![app/stockTopActive.png](app/stockTopActive.png)
