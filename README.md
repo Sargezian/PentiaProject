@@ -23,13 +23,13 @@ The app was developed using Google Firebase, React Native CLI for the framework 
 - [x] A list is shown with the name and a short description of each room.
 - [x] Each row have a chevron icon to the right indicating i can press.
 - [x] The list is sorted by newest message. 
-- [x] I can pull to refresh to reload the list.
+- [ ] I can pull to refresh to reload the list.
 - [x] Pressing a room takes me to the send and receive screen
 
 ### Send and receive messages - Accepttest:
 - [x] As a user I would like to be able to send and receive messages inside a chat room.
 - [x] Last 50 messages is loaded when chat room is opened.
-- [x] Scroll to load more messages. 
+- [ ] Scroll to load more messages. 
 - [x] When a message is received it is automatically added to the list. 
 - [x] An input field at the bottom of the view should be shown. 
 - [x] A. When pressed the keyboard opens.
@@ -37,10 +37,10 @@ The app was developed using Google Firebase, React Native CLI for the framework 
 - [x] A message consists of: Avatar of sender, Name of sender, Message date & Message text. 
 
 ### Push functionality - Accepttest:
-- [x] As a user I would like to receive a push message when a new message is added to a room that I have participated in.
+- [ ] As a user I would like to receive a push message when a new message is added to a room that I have participated in.
 - [x] When i write a message inside a room, then i am asked if i want to have notifications from that room. 
-- [x] Every time someone writes a message in the room, a push message is sent to me. 
-- [x] When the user presses a push message, he or she should be taken directly to the room/message (using deep links).
+- [ ] Every time someone writes a message in the room, a push message is sent to me. 
+- [ ] When the user presses a push message, he or she should be taken directly to the room/message (using deep links).
 
 ### Upload of images to chat room - Accepttest:
 - [x] As a user I would like to be able to upload an image to a chat room.
@@ -50,26 +50,44 @@ The app was developed using Google Firebase, React Native CLI for the framework 
 
 # Screenshots
 
-### App Icons:
+### App Icons
 ![assets/READMEScreenshots/AppIcon1.png](assets/READMEScreenshots/AppIcon1.png)
+![assets/READMEScreenshots/AppIcon2.png](assets/READMEScreenshots/AppIcon2.png)
 
-### MarketWatch
-![app/stockTopActive.png](app/stockTopActive.png)
+### Splash Screen
+![assets/READMEScreenshots/SplashScreen.png](assets/READMEScreenshots/SplashScreen.png)
 
-### Graph
-![app/graphStock.png](app/graphStock.png)
+### Login
+![assets/READMEScreenshots/Login.png](assets/READMEScreenshots/Login.png)
 
-### StockNews
-![app/stockNews.png](app/stockNews.png)
+### Facebook/Google Login
+![assets/READMEScreenshots/FaceGoogle.png](assets/READMEScreenshots/FaceGoogle.png)
 
-### Search
-![app/Search.png](app/Search.png)
+### ChatRoom
+![assets/READMEScreenshots/ChatRoom.png](assets/READMEScreenshots/ChatRoom.png)
 
-### Watchlist
-![app/Watchlist.png](app/Watchlist.png)
+### Notification
+![assets/READMEScreenshots/Notification.png](assets/READMEScreenshots/Notification.png)
 
-### Setting
-![app/Setting.png](app/Setting.png)
+### Send Receive Messages
+![assets/READMEScreenshots/SendReceive.png](assets/READMEScreenshots/SendReceive.png)
 
+# Libraries
 
-
+### @react-native-async-storage/async-storage
+- Used to store user userInfo on the device & remember users, so that they can log in automatically after splashscreen.
+### @react-native-firebase/app
+- Used to enable firebase services
+### @react-native-firebase/auth @react-native-google-signin/google-signin
+### react-native-fbsdk-next
+- Used for login authentication though firebase for Facebook and Google login
+### @react-native-firebase/database
+- Used to store messages by the use of Firebase Realtime Database.
+### @react-native-firebase/storage
+- Used to store images that was sent in the chatrooms into Firebase Cloud Storage
+### @react-navigation/native @react-navigation/native @react-navigation/stack
+- Used to for navigation in the app @types/react-native
+- Used for TypeScript react-native-image-crop-picker
+- Used for selecting images from library or camera
+### react-native-splash-screen
+- Used for splash-screen functionality
