@@ -1,79 +1,75 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# PentiaProject
+This is a simple chat application that includes login functionality and the possibility to join some predefined chat
+rooms.
 
-# Getting Started
+The app was developed using Google Firebase, React Native CLI for the framework & TypeScript as the main Programming Language. 
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+# Requirements
 
-## Step 1: Start the Metro Server
+### Splash Screen - Accepttest:
+- [x] As a user I would like a nice and clean splash screen while the application loads.
+- [x] Splash loads while the application is loading up.  
+- [x] When finish next screen should fade in. 
+- [x] A. If you are logged in, go to Chat rooms
+- [x] B. If you are not logged in, go to Login screen
+ 
+### Login screen - Accepttest:
+- [x] As a user I would like to be able to login using my social login accounts.
+- [x] A. Facebook
+- [x] B. Google
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+### Chat rooms - Accepttest:
+- [x] As a user I would like to be shown a list of available rooms. The list is sorted by newest message.
+- [x] A list is shown with the name and a short description of each room.
+- [x] Each row have a chevron icon to the right indicating i can press.
+- [x] The list is sorted by newest message. 
+- [x] I can pull to refresh to reload the list.
+- [x] Pressing a room takes me to the send and receive screen
 
-To start Metro, run the following command from the _root_ of your React Native project:
+### Send and receive messages - Accepttest:
+- [x] As a user I would like to be able to send and receive messages inside a chat room.
+- [x] Last 50 messages is loaded when chat room is opened.
+- [x] Scroll to load more messages. 
+- [x] When a message is received it is automatically added to the list. 
+- [x] An input field at the bottom of the view should be shown. 
+- [x] A. When pressed the keyboard opens.
+- [x] B. When message entered and user presses “Send” / “Enter” the message is sent and added to the list.
+- [x] A message consists of: Avatar of sender, Name of sender, Message date & Message text. 
 
-```bash
-# using npm
-npm start
+### Push functionality - Accepttest:
+- [x] As a user I would like to receive a push message when a new message is added to a room that I have participated in.
+- [x] When i write a message inside a room, then i am asked if i want to have notifications from that room. 
+- [x] Every time someone writes a message in the room, a push message is sent to me. 
+- [x] When the user presses a push message, he or she should be taken directly to the room/message (using deep links).
 
-# OR using Yarn
-yarn start
-```
+### Upload of images to chat room - Accepttest:
+- [x] As a user I would like to be able to upload an image to a chat room.
+- [x] I can upload image from camera.  
+- [x] I can upload image from phone gallery. 
+- [x] Image is shown in the chat room in the same flow as messages. 
 
-## Step 2: Start your Application
+# Screenshots
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+### Login:
+![app/Login.png](app/Login.png)
 
-### For Android
+### MarketWatch
+![app/stockTopActive.png](app/stockTopActive.png)
 
-```bash
-# using npm
-npm run android
+### Graph
+![app/graphStock.png](app/graphStock.png)
 
-# OR using Yarn
-yarn android
-```
+### StockNews
+![app/stockNews.png](app/stockNews.png)
 
-### For iOS
+### Search
+![app/Search.png](app/Search.png)
 
-```bash
-# using npm
-npm run ios
+### Watchlist
+![app/Watchlist.png](app/Watchlist.png)
 
-# OR using Yarn
-yarn ios
-```
+### Setting
+![app/Setting.png](app/Setting.png)
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
